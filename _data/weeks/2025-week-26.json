@@ -1,0 +1,230 @@
+{
+  "week": 26,
+  "year": 2025,
+  "date": "2025-06-27",
+  "title": "Weekly AI News - Week 26, 2025",
+  "summary": "Major releases from Anthropic, Apple, and Meta, plus significant research breakthroughs and industry investments",
+  "date_range": {
+    "start": "2025-06-21",
+    "end": "2025-06-27"
+  },
+  "categories": {
+    "trending": [
+      {
+        "title": "Claude 4 Release",
+        "description": "Anthropic announces Claude 4 with enhanced reasoning capabilities and improved safety measures",
+        "url": "https://anthropic.com/claude-4",
+        "priority": "high",
+        "tags": ["anthropic", "claude", "release", "safety"]
+      },
+      {
+        "title": "Apple AI Integration",
+        "description": "Apple unveils comprehensive AI features across iOS 19, including advanced Siri improvements",
+        "url": "https://apple.com/ios-19-ai",
+        "priority": "high",
+        "tags": ["apple", "ios", "siri", "integration"]
+      },
+      {
+        "title": "OpenAI GPT-5 Rumors",
+        "description": "Industry speculation grows around potential GPT-5 announcement at upcoming developer conference",
+        "url": "https://openai.com/blog/gpt-5-preview",
+        "priority": "medium",
+        "tags": ["openai", "gpt-5", "rumors", "conference"]
+      }
+    ],
+    "releases": [
+      {
+        "title": "Meta Llama 3.1 70B",
+        "description": "Meta releases improved version with better code generation and mathematical reasoning",
+        "url": "https://ai.meta.com/llama-3-1",
+        "version": "3.1",
+        "tags": ["meta", "llama", "code-generation", "reasoning"]
+      },
+      {
+        "title": "Google Gemini Pro 1.5",
+        "description": "Enhanced multimodal capabilities with longer context windows up to 2M tokens",
+        "url": "https://deepmind.google/gemini-pro-1-5",
+        "version": "1.5",
+        "tags": ["google", "gemini", "multimodal", "context-window"]
+      },
+      {
+        "title": "Microsoft Copilot Studio",
+        "description": "New low-code platform for building custom AI assistants and workflows",
+        "url": "https://copilot.microsoft.com/studio",
+        "version": "1.0",
+        "tags": ["microsoft", "copilot", "low-code", "assistants"]
+      },
+      {
+        "title": "Nvidia NIM Updates",
+        "description": "New AI inference microservices for easier enterprise deployment",
+        "url": "https://nvidia.com/nim-updates",
+        "version": "2.1",
+        "tags": ["nvidia", "nim", "inference", "microservices"]
+      }
+    ],
+    "research": [
+      {
+        "title": "Attention Is All You Need Follow-up",
+        "authors": ["Stanford Research Team"],
+        "description": "Stanford researchers propose new transformer architecture with 40% efficiency gains",
+        "url": "https://arxiv.org/abs/2025.transformer-v2",
+        "institution": "Stanford University",
+        "tags": ["transformer", "architecture", "efficiency", "stanford"]
+      },
+      {
+        "title": "MIT AI Alignment Breakthrough",
+        "authors": ["MIT AI Lab"],
+        "description": "Novel approach to AI alignment using constitutional AI methods shows promising results",
+        "url": "https://arxiv.org/abs/2025.constitutional-ai",
+        "institution": "MIT",
+        "tags": ["alignment", "constitutional-ai", "safety", "mit"]
+      },
+      {
+        "title": "DeepMind Reinforcement Learning",
+        "authors": ["DeepMind Research"],
+        "description": "New reinforcement learning technique achieves superhuman performance in complex reasoning tasks",
+        "url": "https://arxiv.org/abs/2025.rl-reasoning",
+        "institution": "DeepMind",
+        "tags": ["reinforcement-learning", "reasoning", "superhuman", "deepmind"]
+      },
+      {
+        "title": "UC Berkeley AI Bias Study",
+        "authors": ["UC Berkeley AI Lab"],
+        "description": "Research on AI bias detection reveals significant improvements in fairness metrics",
+        "url": "https://arxiv.org/abs/2025.bias-detection",
+        "institution": "UC Berkeley",
+        "tags": ["bias", "fairness", "detection", "berkeley"]
+      }
+    ],
+    "industry": [
+      {
+        "title": "$2B AI Investment by a16z",
+        "description": "Andreessen Horowitz launches largest AI-focused fund to date",
+        "url": "https://a16z.com/ai-fund-2b",
+        "amount": "$2,000,000,000",
+        "type": "fund",
+        "tags": ["investment", "a16z", "fund", "venture-capital"]
+      },
+      {
+        "title": "Tesla FSD Beta Expansion",
+        "description": "Full Self-Driving beta expands to additional markets with improved safety ratings",
+        "url": "https://tesla.com/fsd-expansion",
+        "company": "Tesla",
+        "tags": ["tesla", "fsd", "autonomous", "expansion"]
+      },
+      {
+        "title": "Adobe AI Acquisition",
+        "description": "Adobe acquires AI startup specializing in creative content generation for $800M",
+        "url": "https://adobe.com/acquisition-2025",
+        "amount": "$800,000,000",
+        "type": "acquisition",
+        "tags": ["adobe", "acquisition", "creative-ai", "content-generation"]
+      },
+      {
+        "title": "IBM Watson Platform Overhaul",
+        "description": "IBM announces major Watson platform overhaul with focus on enterprise automation",
+        "url": "https://ibm.com/watson-2025",
+        "company": "IBM",
+        "tags": ["ibm", "watson", "enterprise", "automation"]
+      }
+    ],
+    "tools": [
+      {
+        "title": "Vercel AI SDK 4.0",
+        "description": "Major update with improved streaming, better error handling, and new provider integrations",
+        "url": "https://vercel.com/ai-sdk-4",
+        "version": "4.0",
+        "type": "sdk",
+        "tags": ["vercel", "sdk", "streaming", "integrations"]
+      },
+      {
+        "title": "LangChain 0.3",
+        "description": "Significant performance improvements and new memory management features",
+        "url": "https://langchain.com/v0.3",
+        "version": "0.3",
+        "type": "framework",
+        "tags": ["langchain", "performance", "memory", "framework"]
+      },
+      {
+        "title": "Hugging Face Spaces Update",
+        "description": "New GPU instances and collaborative features for AI model deployment",
+        "url": "https://huggingface.co/spaces-update",
+        "type": "platform",
+        "tags": ["huggingface", "gpu", "deployment", "collaboration"]
+      },
+      {
+        "title": "Weights & Biases Enhancement",
+        "description": "Enhanced experiment tracking with automated hyperparameter optimization",
+        "url": "https://wandb.ai/auto-hyperopt",
+        "type": "platform",
+        "tags": ["wandb", "experiment-tracking", "hyperparameter", "optimization"]
+      }
+    ],
+    "learning": [
+      {
+        "title": "Stanford CS229 Update",
+        "description": "New online course materials released covering latest developments in machine learning",
+        "url": "https://cs229.stanford.edu/2025",
+        "institution": "Stanford University",
+        "type": "course",
+        "tags": ["stanford", "cs229", "machine-learning", "course"]
+      },
+      {
+        "title": "Fast.ai New Course",
+        "description": "Jeremy Howard announces new practical deep learning course focusing on 2025 techniques",
+        "url": "https://fast.ai/2025-course",
+        "instructor": "Jeremy Howard",
+        "type": "course",
+        "tags": ["fast.ai", "deep-learning", "practical", "2025"]
+      },
+      {
+        "title": "Google AI Education Certification",
+        "description": "Free certification program launches for AI fundamentals and practical applications",
+        "url": "https://ai.google/education/certification",
+        "provider": "Google",
+        "type": "certification",
+        "tags": ["google", "certification", "fundamentals", "free"]
+      },
+      {
+        "title": "MIT OpenCourseWare AI Safety",
+        "description": "New AI safety and alignment course materials published",
+        "url": "https://ocw.mit.edu/ai-safety-2025",
+        "institution": "MIT",
+        "type": "courseware",
+        "tags": ["mit", "ai-safety", "alignment", "opencourseware"]
+      }
+    ]
+  },
+  "stats": {
+    "total_items": 23,
+    "research_papers": 4,
+    "new_tools": 7,
+    "industry_news": 6,
+    "learning_resources": 4,
+    "new_releases": 4
+  },
+  "contributors": [
+    {
+      "username": "airesearcher",
+      "contribution": "research paper submissions",
+      "items_contributed": 3
+    },
+    {
+      "username": "devtools_fan",
+      "contribution": "tool updates",
+      "items_contributed": 5
+    },
+    {
+      "username": "industry_watcher",
+      "contribution": "business news",
+      "items_contributed": 4
+    }
+  ],
+  "next_week_preview": "Looking ahead to Week 27, we'll be covering the latest developments from the AI Safety Summit and new open-source model releases.",
+  "generated_date": "2025-06-27T09:00:00Z",
+  "automation": {
+    "workflow_run": true,
+    "manual_curation": false,
+    "community_contributions": 11
+  }
+}

@@ -1,0 +1,90 @@
+name: 📰 AI News Submission
+description: Submit a news item for the weekly AI newsletter
+title: "[NEWS] "
+labels: ["news-submission", "content", "community"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to Weekly AI News! Please provide details about the AI news item you'd like to submit.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: News Category
+      description: What category does this news item belong to?
+      options:
+        - 🔥 Trending News
+        - 🚀 New Releases
+        - 📚 Research Papers
+        - 💼 Industry News
+        - 🛠️ Tools & Platforms
+        - 🎓 Learning Resources
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: News Title
+      description: A clear, concise title for the news item
+      placeholder: e.g., "OpenAI Releases GPT-4 Vision with Multimodal Capabilities"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A brief description of the news item (2-3 sentences)
+      placeholder: Provide a summary of what this news is about and why it's significant
+    validations:
+      required: true
+
+  - type: input
+    id: source_url
+    attributes:
+      label: Source URL
+      description: Link to the original news source
+      placeholder: https://...
+    validations:
+      required: true
+
+  - type: input
+    id: additional_links
+    attributes:
+      label: Additional Links (Optional)
+      description: Any additional relevant links (documentation, demos, etc.)
+      placeholder: https://...
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important/significant is this news?
+      options:
+        - 🔥 High - Major breakthrough or significant industry impact
+        - 📢 Medium - Notable development worth highlighting
+        - 📝 Low - Interesting but not urgent
+    validations:
+      required: true
+
+  - type: textarea
+    id: why_important
+    attributes:
+      label: Why is this important?
+      description: Explain why this news should be included in the newsletter
+      placeholder: This is significant because...
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification
+      description: Please confirm the following
+      options:
+        - label: I have verified this is a legitimate news source
+          required: true
+        - label: This news item is recent (within the past week)
+          required: true
+        - label: I have searched to ensure this hasn't already been submitted
+          required: true
