@@ -1,0 +1,78 @@
+name: 🐛 Bug Report
+description: Report a bug or technical issue
+title: "[BUG] "
+labels: ["bug", "needs-investigation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please provide as much detail as possible.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear description of what the bug is
+      placeholder: Describe what happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened instead?
+      placeholder: I expected...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Go to...
+        2. Click on...
+        3. See error...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Where did you encounter this bug?
+      options:
+        - 🌐 Website/GitHub Pages
+        - 🤖 GitHub Actions/Automation
+        - 📰 Newsletter Content
+        - 📊 Data/JSON Files
+        - 🔧 Local Development
+        - 📚 Documentation
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Page/URL (if applicable)
+      description: Where did you encounter this bug?
+      placeholder: https://...
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, OS, or other relevant environment details
+      placeholder: |
+        - Browser: Chrome 120.0
+        - OS: Windows 11
+        - Device: Desktop
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context, screenshots, or information
+      placeholder: Add any screenshots or additional details...

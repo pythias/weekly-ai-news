@@ -1,0 +1,59 @@
+name: ✨ Feature Request
+description: Suggest a new feature or improvement
+title: "[FEATURE] "
+labels: ["enhancement", "feature-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Help us understand what you'd like to see improved.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Description
+      description: What problem does this feature solve?
+      placeholder: I'm frustrated when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the feature you'd like to see
+      placeholder: I would like...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Have you considered any alternative solutions?
+      placeholder: Other approaches could be...
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of the project does this relate to?
+      options:
+        - 📰 Newsletter Content
+        - 🤖 Automation/Workflows
+        - 🎨 Website Design
+        - 📊 Data Structure
+        - 🔧 Development Tools
+        - 📚 Documentation
+        - 🤝 Community Features
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: implementation
+    attributes:
+      label: Implementation
+      options:
+        - label: I would be willing to implement this feature
+        - label: This is a breaking change
+        - label: This requires new dependencies

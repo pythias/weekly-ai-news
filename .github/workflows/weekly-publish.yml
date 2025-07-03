@@ -1,0 +1,211 @@
+name: Weekly AI News Publisher
+
+on:
+  schedule:
+    # Run every Friday at 9:00 AM UTC
+    - cron: '0 9 * * 5'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  publish-weekly-news:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+        bundler-cache: true
+
+    - name: Get current date
+      id: date
+      run: |
+        echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+        echo "week_number=$(date +'%U')" >> $GITHUB_OUTPUT
+        echo "year=$(date +'%Y')" >> $GITHUB_OUTPUT
+
+    - name: Create weekly post
+      run: |
+        # Create weekly post directory if it doesn't exist
+        mkdir -p _posts
+        
+        # Generate weekly post filename
+        POST_FILE="_posts/${{ steps.date.outputs.current_date }}-weekly-ai-news-week-${{ steps.date.outputs.week_number }}.md"
+        
+        # Check if post already exists
+        if [ ! -f "$POST_FILE" ]; then
+          cat > "$POST_FILE" << 'EOF'
+        ---
+        layout: post
+        title: "Weekly AI News - Week ${{ steps.date.outputs.week_number }}, ${{ steps.date.outputs.year }}"
+        date: ${{ steps.date.outputs.current_date }}
+        categories: [weekly, ai-news]
+        tags: [artificial-intelligence, machine-learning, news]
+        week: ${{ steps.date.outputs.week_number }}
+        year: ${{ steps.date.outputs.year }}
+        ---
+
+        # Weekly AI News - Week ${{ steps.date.outputs.week_number }}, ${{ steps.date.outputs.year }}
+
+        Welcome to this week's AI news roundup! Here are the most significant developments in artificial intelligence.
+
+        ## 🔥 Trending This Week
+
+        <!-- Add trending news items here -->
+        - [Coming Soon] Major AI developments will be added here
+
+        ## 🚀 New Releases
+
+        <!-- Add new product/service releases -->
+        - [Coming Soon] New AI tools and platforms
+
+        ## 📚 Research Highlights
+
+        <!-- Add notable research papers -->
+        - [Coming Soon] Latest research papers and studies
+
+        ## 💼 Industry News
+
+        <!-- Add business and funding news -->
+        - [Coming Soon] Industry moves and investments
+
+        ## 🛠️ Tools & Platforms
+
+        <!-- Add new tools and updates -->
+        - [Coming Soon] Developer tools and platforms
+
+        ## 🎓 Learning & Tutorials
+
+        <!-- Add educational content -->
+        - [Coming Soon] Tutorials and learning resources
+
+        ---
+
+        ## 📊 Weekly Stats
+
+        - **Total Items**: TBD
+        - **Research Papers**: TBD  
+        - **New Tools**: TBD
+        - **Industry News**: TBD
+
+        ---
+
+        *Have news to share? [Submit an issue](https://github.com/${{ github.repository }}/issues/new/choose) or contribute to next week's newsletter!*
+        EOF
+          
+          echo "Created new weekly post: $POST_FILE"
+        else
+          echo "Weekly post already exists: $POST_FILE"
+        fi
+
+    - name: Create JSON data file
+      run: |
+        # Create data directory if it doesn't exist
+        mkdir -p _data/weeks
+        
+        # Generate JSON data file
+        JSON_FILE="_data/weeks/${{ steps.date.outputs.year }}-week-${{ steps.date.outputs.week_number }}.json"
+        
+        if [ ! -f "$JSON_FILE" ]; then
+          cat > "$JSON_FILE" << 'EOF'
+        {
+          "week": ${{ steps.date.outputs.week_number }},
+          "year": ${{ steps.date.outputs.year }},
+          "date": "${{ steps.date.outputs.current_date }}",
+          "title": "Weekly AI News - Week ${{ steps.date.outputs.week_number }}, ${{ steps.date.outputs.year }}",
+          "categories": {
+            "trending": [],
+            "releases": [],
+            "research": [],
+            "industry": [],
+            "tools": [],
+            "learning": []
+          },
+          "stats": {
+            "total_items": 0,
+            "research_papers": 0,
+            "new_tools": 0,
+            "industry_news": 0
+          },
+          "contributors": [],
+          "generated_date": "${{ steps.date.outputs.current_date }}T09:00:00Z"
+        }
+        EOF
+          
+          echo "Created JSON data file: $JSON_FILE"
+        fi
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        if [ -n "$(git status --porcelain)" ]; then
+          git add .
+          git commit -m "📰 Weekly AI News - Week ${{ steps.date.outputs.week_number }}, ${{ steps.date.outputs.year }}"
+          git push
+          echo "Changes committed and pushed"
+        else
+          echo "No changes to commit"
+        fi
+
+    - name: Create issue for content collection
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: issues } = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: 'weekly-collection',
+            state: 'open'
+          });
+
+          // Only create issue if none exists for this week
+          if (issues.length === 0) {
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '📝 Collect AI News - Week ${{ steps.date.outputs.week_number }}, ${{ steps.date.outputs.year }}',
+              body: `## This Week's AI News Collection
+
+          Help us curate this week's AI news! Please add items using the sections below:
+
+          ### 🔥 Trending News
+          <!-- Add trending AI news items -->
+
+          ### 🚀 New Releases  
+          <!-- Add new AI tools, products, or services -->
+
+          ### 📚 Research Papers
+          <!-- Add notable research papers -->
+
+          ### 💼 Industry News
+          <!-- Add business news, funding, acquisitions -->
+
+          ### 🛠️ Tools & Platforms
+          <!-- Add developer tools and platforms -->
+
+          ### 🎓 Learning Resources
+          <!-- Add tutorials, courses, guides -->
+
+          ---
+
+          **How to contribute:**
+          1. Comment on this issue with news items
+          2. Use the format: \`[Category] Title - Brief description [Link]\`
+          3. Items will be reviewed and added to the weekly newsletter
+
+          **Deadline:** Next Thursday at 23:59 UTC`,
+              labels: ['weekly-collection', 'content', 'community']
+            });
+          }

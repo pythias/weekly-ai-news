@@ -1,0 +1,79 @@
+# Site settings
+title: Weekly AI News
+email: your-email@example.com
+description: >-
+  A curated weekly newsletter featuring the latest developments in artificial intelligence,
+  automatically published every Friday via GitHub Pages.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: your_twitter
+github_username: your_github
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Collections
+collections:
+  weeks:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "AI News Team"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Pagination
+paginate: 10
+paginate_path: "/page:num/"
+
+# SEO
+lang: en
+timezone: UTC
+
+# Custom variables
+weekly_schedule: "Every Friday at 9:00 AM UTC"
+github_repo: "your-username/weekly-ai-news"
+archive_enabled: true
+json_feed_enabled: true
+
+# Social links
+social_links:
+  twitter: your_twitter
+  github: your_github
+  linkedin: your_linkedin
+
+# Analytics (optional)
+google_analytics: # GA tracking ID
+
+# Comments (optional)
+disqus:
+  shortname: # your-disqus-shortname
