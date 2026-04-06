@@ -12,7 +12,7 @@ github_username: your_github
 # Build settings
 markdown: kramdown
 highlighter: rouge
-theme: minima
+# theme: minima  # Disabled - using custom mobile-first design system
 plugins:
   - jekyll-feed
   - jekyll-sitemap

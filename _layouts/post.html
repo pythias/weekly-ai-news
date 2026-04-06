@@ -1,0 +1,286 @@
+---
+layout: default
+---
+
+<!-- Week Header -->
+<article class="week-header">
+  {% if page.week and page.year %}
+  <span class="week-badge">Week {{ page.week }}, {{ page.year }}</span>
+  {% endif %}
+
+  <h1 class="week-title">{{ page.title }}</h1>
+
+  <p class="week-meta">
+    {% if page.date %}
+    Published: <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+    {% endif %}
+    {% if page.author %}
+    · By {{ page.author }}
+    {% endif %}
+  </p>
+</article>
+
+<!-- Post Content -->
+<div class="post-content">
+  {{ content }}
+</div>
+
+<!-- Social Share Buttons -->
+<section class="share-section" style="margin-top: var(--space-2xl); padding: var(--space-xl); background: linear-gradient(135deg, var(--color-surface), var(--color-bg)); border: 1px solid var(--color-border); border-radius: var(--radius-lg);">
+  <h3 style="display: flex; align-items: center; gap: var(--space-sm); font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--space-lg);">
+    <span>📢</span>
+    Share This Week's AI News
+  </h3>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-md);">
+    <a href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url | url_encode }}&text={{ page.title | url_encode }}&hashtags=AI,MachineLearning,WeeklyAINews"
+       target="_blank" rel="noopener"
+       class="archive-link"
+       style="text-decoration: none; background: #1DA1F2; color: white; border-color: #1DA1F2; justify-content: center;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+      </svg>
+      Twitter
+    </a>
+
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | url_encode }}"
+       target="_blank" rel="noopener"
+       class="archive-link"
+       style="text-decoration: none; background: #0077B5; color: white; border-color: #0077B5; justify-content: center;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+        <circle cx="4" cy="4" r="2"/>
+      </svg>
+      LinkedIn
+    </a>
+
+    <a href="mailto:?subject={{ page.title | url_encode }}&body=Check%20out%20this%20week's%20AI%20news:%20{{ page.url | absolute_url | url_encode }}"
+       class="archive-link"
+       style="text-decoration: none; justify-content: center;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      Email
+    </a>
+
+    <button onclick="copyToClipboard('{{ page.url | absolute_url }}')"
+            class="archive-link"
+            style="border: 1px solid var(--color-border); background: var(--color-bg); cursor: pointer; justify-content: center;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+      </svg>
+      Copy Link
+    </button>
+  </div>
+
+  <p style="margin-top: var(--space-md); font-size: var(--text-sm); color: var(--color-text-secondary); text-align: center;">
+    Help spread the word about AI developments this week!
+  </p>
+</section>
+
+<!-- Navigation -->
+<nav class="post-navigation" aria-label="Post navigation" style="margin-top: var(--space-2xl); padding-top: var(--space-xl); border-top: 2px solid var(--color-border);">
+  <div style="display: grid; gap: var(--space-lg); grid-template-columns: 1fr;">
+    {% if page.previous.url %}
+    <a href="{{ page.previous.url | relative_url }}" class="news-card" style="text-decoration: none;">
+      <div class="card-content">
+        <span style="font-size: var(--text-sm); color: var(--color-text-secondary);">← Previous Week</span>
+        <h4 class="news-title">{{ page.previous.title }}</h4>
+      </div>
+    </a>
+    {% endif %}
+
+    {% if page.next.url %}
+    <a href="{{ page.next.url | relative_url }}" class="news-card" style="text-decoration: none;">
+      <div class="card-content">
+        <span style="font-size: var(--text-sm); color: var(--color-text-secondary);">Next Week →</span>
+        <h4 class="news-title">{{ page.next.title }}</h4>
+      </div>
+    </a>
+    {% endif %}
+  </div>
+</nav>
+
+<!-- Custom Styles for Post Content -->
+<style>
+  .post-content {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  /* Section Headings in Post */
+  .post-content h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .post-content h3 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .post-content h4 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Paragraphs */
+  .post-content p {
+    margin-bottom: var(--space-md);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  /* Lists */
+  .post-content ul,
+  .post-content ol {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-xl);
+  }
+
+  .post-content li {
+    margin-bottom: var(--space-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .post-content li strong {
+    color: var(--color-text);
+  }
+
+  /* Links */
+  .post-content a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 150ms ease;
+  }
+
+  .post-content a:hover {
+    text-decoration-color: var(--color-primary);
+  }
+
+  /* Blockquotes */
+  .post-content blockquote {
+    margin: var(--space-lg) 0;
+    padding: var(--space-md) var(--space-lg);
+    border-left: 4px solid var(--color-primary);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-md);
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+
+  /* Code Blocks */
+  .post-content pre {
+    margin: var(--space-lg) 0;
+    padding: var(--space-lg);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .post-content code {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    background-color: var(--color-surface);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+  }
+
+  .post-content pre code {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  /* Horizontal Rule */
+  .post-content hr {
+    margin: var(--space-2xl) 0;
+    border: none;
+    border-top: 2px solid var(--color-border);
+  }
+
+  /* Images */
+  .post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--space-lg) 0;
+  }
+
+  /* Tables */
+  .post-content table {
+    width: 100%;
+    margin: var(--space-lg) 0;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .post-content th,
+  .post-content td {
+    padding: var(--space-md);
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .post-content th {
+    background-color: var(--color-surface);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .post-content td {
+    color: var(--color-text-secondary);
+  }
+
+  /* Tablet & Desktop */
+  @media (min-width: 768px) {
+    .post-navigation > div {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<!-- Copy to Clipboard Script -->
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      const button = event.target.closest('button');
+      const originalHTML = button.innerHTML;
+      button.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><polyline points="20 6 9 17 4 12"/></svg>Copied!';
+      button.style.background = 'var(--color-secondary)';
+      button.style.color = 'white';
+      button.style.borderColor = 'var(--color-secondary)';
+
+      setTimeout(function() {
+        button.innerHTML = originalHTML;
+        button.style.background = 'var(--color-bg)';
+        button.style.color = 'var(--color-text)';
+        button.style.borderColor = 'var(--color-border)';
+      }, 2000);
+    }).catch(function(err) {
+      console.error('Failed to copy:', err);
+      alert('Failed to copy link. Please copy manually: ' + text);
+    });
+  }
+</script>

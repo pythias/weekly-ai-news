@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- SEO -->
+  {% seo %}
+
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="{{ '/assets/css/mobile-first.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/syntax-highlighting.css' | relative_url }}">
+
+  <!-- RSS Feed -->
+  <link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | relative_url }}" title="{{ site.title }}">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+
+  <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
+</head>
+<body class="weekly-ai-news">
+
+  <!-- Skip to Main Content (Accessibility) -->
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+
+  <!-- Reading Progress Bar (only on post pages) -->
+  {% if page.layout == 'post' %}
+  <div class="reading-progress" id="reading-progress"></div>
+  {% endif %}
+
+  <!-- Header -->
+  <header class="header-mobile" role="banner">
+    <div class="container">
+      <a href="{{ '/' | relative_url }}" class="logo">
+        🤖 <span>AI News</span>
+      </a>
+
+      <button
+        class="theme-toggle"
+        aria-label="Toggle dark mode"
+        onclick="toggleTheme()"
+      >
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content" role="main">
+    <div class="container">
+      {{ content }}
+    </div>
+  </main>
+
+  <!-- Floating RSS Button -->
+  <a href="{{ '/feed.xml' | relative_url }}" class="rss-float" aria-label="Subscribe to RSS feed" title="Subscribe via RSS">
+    📡
+  </a>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <nav class="archive-nav" aria-label="Site navigation">
+        <a href="{{ '/archive' | relative_url }}" class="archive-link">
+          📚 Archive
+        </a>
+        <a href="{{ '/feed.xml' | relative_url }}" class="rss-link">
+          📡 RSS Feed
+        </a>
+        {% if site.github_repo %}
+        <a href="https://github.com/{{ site.github_repo }}" class="archive-link" target="_blank" rel="noopener">
+          🔗 GitHub
+        </a>
+        {% endif %}
+      </nav>
+
+      <div style="text-align: center; margin-top: var(--space-lg); color: var(--color-text-secondary); font-size: var(--text-sm);">
+        <p>&copy; {{ 'now' | date: '%Y' }} {{ site.title }}. Published every {{ site.weekly_schedule }}.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    // Dark Mode Toggle with System Preference Detection
+    function getPreferredTheme() {
+      const stored = localStorage.getItem('theme');
+      if (stored) return stored;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+
+      const sunIcon = document.querySelector('.icon-sun');
+      const moonIcon = document.querySelector('.icon-moon');
+
+      if (theme === 'dark') {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      } else {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      }
+    }
+
+    function toggleTheme() {
+      const current = getPreferredTheme();
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    }
+
+    // Initialize theme on page load
+    setTheme(getPreferredTheme());
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+
+    // Reading Progress Bar (only on post pages)
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = Math.min((scrolled / height) * 100, 100);
+        progressBar.style.width = `${progress}%`;
+      });
+    }
+  </script>
+
+  <!-- Performance Monitoring (Optional) -->
+  <script>
+    // Report Core Web Vitals
+    if ('PerformanceObserver' in window) {
+      try {
+        const po = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            console.log(`${entry.name}: ${entry.value.toFixed(2)}ms`);
+          }
+        });
+        po.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
+      } catch (e) {
+        // Performance API not supported
+      }
+    }
+  </script>
+</body>
+</html>

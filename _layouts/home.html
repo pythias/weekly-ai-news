@@ -1,0 +1,199 @@
+---
+layout: default
+---
+
+<!-- Hero Section -->
+<section style="padding: var(--space-2xl) 0; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h1 style="font-size: 36px; font-weight: 800; line-height: var(--leading-tight); margin-bottom: var(--space-md);">
+      {{ page.title | default: "Weekly AI News" }}
+    </h1>
+
+    <p style="font-size: var(--text-lg); color: var(--color-text-secondary); line-height: var(--leading-relaxed); margin-bottom: var(--space-xl);">
+      {{ page.description | default: site.description }}
+    </p>
+
+    <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
+      <a href="#latest-posts" class="archive-link" style="text-decoration: none;">
+        📰 Latest Posts
+      </a>
+      <a href="{{ '/feed.xml' | relative_url }}" class="rss-link" style="text-decoration: none;">
+        📡 Subscribe via RSS
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- What We Cover -->
+<section class="news-section">
+  <h2 class="section-title">
+    <span class="section-icon">🎯</span>
+    What We Cover
+  </h2>
+
+  <div class="news-grid">
+    <div class="news-card">
+      <div class="card-content">
+        <h3 style="font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-sm);">🔥 Trending</h3>
+        <p class="news-summary">Hot topics and breaking AI developments</p>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="card-content">
+        <h3 style="font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-sm);">🚀 Releases</h3>
+        <p class="news-summary">Latest AI tools, models, and platforms</p>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="card-content">
+        <h3 style="font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-sm);">📚 Research</h3>
+        <p class="news-summary">Notable papers and academic breakthroughs</p>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="card-content">
+        <h3 style="font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-sm);">💼 Industry</h3>
+        <p class="news-summary">Business news, funding, and market moves</p>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="card-content">
+        <h3 style="font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-sm);">🛠️ Tools</h3>
+        <p class="news-summary">Developer tools and platform updates</p>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="card-content">
+        <h3 style="font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-sm);">🎓 Learning</h3>
+        <p class="news-summary">Tutorials, courses, and educational resources</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Latest Posts -->
+<section class="news-section" id="latest-posts">
+  <h2 class="section-title">
+    <span class="section-icon">📰</span>
+    Latest Posts
+  </h2>
+
+  {% if site.posts.size > 0 %}
+  <div class="news-grid">
+    {% for post in site.posts limit:6 %}
+    <article class="news-card">
+      <div class="card-content">
+        {% if post.week and post.year %}
+        <span style="display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); color: white; font-size: var(--text-xs); font-weight: 600; border-radius: 12px; margin-bottom: var(--space-sm);">
+          Week {{ post.week }}, {{ post.year }}
+        </span>
+        {% endif %}
+
+        <h3 class="news-title">
+          <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: inherit;">
+            {{ post.title }}
+          </a>
+        </h3>
+
+        {% if post.excerpt %}
+        <p class="news-summary line-clamp-3">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+        {% endif %}
+
+        <a href="{{ post.url | relative_url }}" class="news-link">
+          Read more →
+        </a>
+
+        <div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--color-border); font-size: var(--text-sm); color: var(--color-text-secondary);">
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%B %d, %Y" }}
+          </time>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  {% if site.posts.size > 6 %}
+  <div style="text-align: center; margin-top: var(--space-xl);">
+    <a href="{{ '/archive' | relative_url }}" class="archive-link" style="text-decoration: none; display: inline-flex;">
+      📚 View All Posts in Archive
+    </a>
+  </div>
+  {% endif %}
+
+  {% else %}
+  <div class="news-card">
+    <div class="card-content">
+      <h3 class="news-title">No posts yet</h3>
+      <p class="news-summary">The first weekly newsletter will be published on {{ site.weekly_schedule }}.</p>
+    </div>
+  </div>
+  {% endif %}
+</section>
+
+<!-- Stats Section -->
+<section class="news-section">
+  <h2 class="section-title">
+    <span class="section-icon">📊</span>
+    Community Stats
+  </h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-lg);">
+    <div style="text-align: center; padding: var(--space-xl); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg);">
+      <div style="font-size: 36px; font-weight: 700; color: var(--color-primary); margin-bottom: var(--space-sm);">
+        {{ site.posts.size }}
+      </div>
+      <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">
+        Weekly Newsletters
+      </div>
+    </div>
+
+    <div style="text-align: center; padding: var(--space-xl); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg);">
+      <div style="font-size: 36px; font-weight: 700; color: var(--color-secondary); margin-bottom: var(--space-sm);">
+        🌍
+      </div>
+      <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">
+        Open Source
+      </div>
+    </div>
+
+    <div style="text-align: center; padding: var(--space-xl); background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg);">
+      <div style="font-size: 36px; font-weight: 700; color: var(--color-accent); margin-bottom: var(--space-sm);">
+        💯
+      </div>
+      <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">
+        Free Forever
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section style="margin-top: var(--space-2xl); padding: var(--space-2xl); background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); border-radius: var(--radius-xl); text-align: center; color: white;">
+  <h2 style="font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-md);">
+    Get Involved
+  </h2>
+
+  <p style="font-size: var(--text-lg); margin-bottom: var(--space-xl); opacity: 0.9;">
+    Help us curate the best AI news every week
+  </p>
+
+  <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
+    {% if site.github_repo %}
+    <a href="https://github.com/{{ site.github_repo }}/issues/new" style="padding: var(--space-md) var(--space-xl); background: rgba(255,255,255,0.2); border: 2px solid white; border-radius: var(--radius-md); color: white; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: var(--space-sm); backdrop-filter: blur(10px);">
+      📝 Submit News
+    </a>
+
+    <a href="https://github.com/{{ site.github_repo }}" style="padding: var(--space-md) var(--space-xl); background: white; border: 2px solid white; border-radius: var(--radius-md); color: var(--color-primary); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: var(--space-sm);">
+      ⭐ Star on GitHub
+    </a>
+    {% endif %}
+  </div>
+</section>
+
+{{ content }}

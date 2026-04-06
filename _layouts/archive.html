@@ -1,0 +1,108 @@
+---
+layout: default
+---
+
+<!-- Archive Header -->
+<div class="week-header">
+  <h1 class="week-title">{{ page.title | default: "Archive" }}</h1>
+  <p class="week-meta">
+    Browse all {{ site.posts.size }} weekly AI newsletters
+  </p>
+</div>
+
+<!-- Archive Content -->
+<section class="news-section">
+  {% if site.posts.size > 0 %}
+
+  <!-- Group posts by year -->
+  {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+
+  {% for year_group in posts_by_year %}
+  <div style="margin-bottom: var(--space-2xl);">
+    <h2 class="section-title">
+      <span class="section-icon">📅</span>
+      {{ year_group.name }}
+    </h2>
+
+    <div style="display: grid; gap: var(--space-md);">
+      {% for post in year_group.items %}
+      <article class="news-card">
+        <div class="card-content">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-md); margin-bottom: var(--space-sm);">
+            {% if post.week and post.year %}
+            <span style="display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); color: white; font-size: var(--text-xs); font-weight: 600; border-radius: 12px; white-space: nowrap;">
+              Week {{ post.week }}
+            </span>
+            {% endif %}
+
+            <time datetime="{{ post.date | date_to_xmlschema }}" style="font-size: var(--text-sm); color: var(--color-text-secondary); white-space: nowrap;">
+              {{ post.date | date: "%b %d" }}
+            </time>
+          </div>
+
+          <h3 class="news-title">
+            <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: inherit;">
+              {{ post.title }}
+            </a>
+          </h3>
+
+          {% if post.excerpt %}
+          <p class="news-summary line-clamp-2">
+            {{ post.excerpt | strip_html | truncatewords: 25 }}
+          </p>
+          {% endif %}
+
+          <a href="{{ post.url | relative_url }}" class="news-link">
+            Read newsletter →
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  {% else %}
+  <div class="news-card">
+    <div class="card-content">
+      <h3 class="news-title">No posts yet</h3>
+      <p class="news-summary">
+        The archive will be populated as weekly newsletters are published every {{ site.weekly_schedule }}.
+      </p>
+      <a href="{{ '/' | relative_url }}" class="news-link">
+        ← Back to home
+      </a>
+    </div>
+  </div>
+  {% endif %}
+</section>
+
+<!-- Desktop: Timeline View -->
+<style>
+  @media (min-width: 768px) {
+    .news-section .news-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-lg);
+    }
+
+    .news-card .card-content {
+      position: relative;
+    }
+
+    .news-card .card-content::before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 12px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 3px solid var(--color-bg);
+      box-shadow: 0 0 0 2px var(--color-primary);
+    }
+  }
+</style>
+
+{{ content }}
